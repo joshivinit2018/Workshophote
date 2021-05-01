@@ -1,49 +1,90 @@
 package com.bridgelabz;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HotelReservationTest {
-    @Test
-    void givenHotel_whenInvokeAddHotel_shouldBeAbleToAdd() {
-        HotelReservationService hotelReservationService = new HotelReservationService();
-        Hotel hotel = new Hotel("Lakewood",110, 0);
-        hotelReservationService.addHotel(hotel);
-        List<Hotel> hotelList = hotelReservationService.getHotels();
-        Assertions.assertTrue(hotelList.contains(hotel));
+    static HotelReservationService hotelReservationService;
+    @BeforeAll
+    public static void initialize() {
+        hotelReservationService = new HotelReservationService();
+    }
+    @BeforeAll
+    public void shouldPrintWelcomeMessage() {
+        hotelReservationService.printWelcomeMessage();
     }
 
     @Test
-   public void given3Hotels_whenInvokeFindCheapestHotel_shouldBeAbleToReturnCheapestHotel() {
-   HotelReservationService hotelReservationService = new HotelReservationService();
-   Hotel Lakewood = new Hotel("Lakewood",110,90);
-   Hotel Bridgewood = new Hotel("Bridgewood",160,50);
-   Hotel Ridgewood = new Hotel("Ridgewood",220,150);
-   hotelReservationService.addHotel(Lakewood);
-   hotelReservationService.addHotel(Bridgewood);
-   hotelReservationService.addHotel(Ridgewood);
-   int countDays = hotelReservationService.countDays("2020-09-10","2020-09-12");
-   System.out.println("Total count days : " +countDays);
-   Hotel result = hotelReservationService.findCheapestHotel();
-   Assertions.assertTrue(hotelReservationService.hotelList.contains(result));
-
+    public void givenDate_WeekDayshouldReturn_CheapestHotelNameBridgeWood() throws Exception {
+        hotelReservationService.addHotelDetails();
+        ArrayList<String> hotelNameList = hotelReservationService.calculateCheapestHotelAndRate("2020-09-14", "2020-09-16");
+        Object[] hotelName = hotelNameList.toArray();
+        Object[] arrayExpectedOutput = { "LakeWood" };
+        Assertions.assertArrayEquals(arrayExpectedOutput, hotelName);
     }
 
+ /* UC2 Cheapest Hotel with weekday weekend */
+ @Test
+ public void givenDateWeekend_shouldReturn_CheapestHotelNameBrideWood1() throws Exception {
+     hotelReservationService.addHotelDetails();
+     ArrayList<String> hotelNameList = hotelReservationService.calculateCheapestHotelAndRate("2020-09-12", "2020-09-13");
+     Object[] hotelName = hotelNameList.toArray();
+     Object[] arrayExpectedOutput = { "LakeWood", "BridgeWood" };
+     Assertions.assertArrayEquals(arrayExpectedOutput, hotelName);
+ }
 
-    @Test
-    public void givenHotel_with3Parameters_whenInvokeAddHotel_shoulBeAbleToAdd() {
-    HotelReservationService hotelReservationService = new HotelReservationService();
-        Hotel Lakewood = new Hotel("Lakewood",110,90);
-        Hotel Bridgewood = new Hotel("Bridgewood",160,50);
-        Hotel Ridgewood = new Hotel("Ridgewood",220,150);
-        hotelReservationService.addHotel(Lakewood);
-        hotelReservationService.addHotel(Bridgewood);
-        hotelReservationService.addHotel(Ridgewood);
-        System.out.println(Lakewood);
-        System.out.println(Bridgewood);
-        System.out.println(Ridgewood);
+ @Test
+ public void givenDateWeekend_shouldReturn_CheapestHotelNameBridgeWood() throws Exception {
+     ArrayList<String> hotelNameList = hotelReservationService.calculateCheapestHotelAndRate("2020-09-12", "2020-09-13");
+     Object[] hotelName = hotelNameList.toArray();
+     Object[] arrayExpectedOutput = { "BridgeWood" };
+     Assertions.assertArrayEquals(arrayExpectedOutput, hotelName);
+ }
 
-    } 
+ /* UC6 Minimum Cost with maximum Ratings on Weekday*/
+ @Test
+ public void givenDate_WeekDayshouldReturn_CheapestHotelNameLakeWood() throws Exception {
+     String hotelName = hotelReservationService.findCheapestCostWithMaxRatings("2020-09-14", "2020-09-16");
+     Assertions.assertEquals("LakeWood", hotelName);
+ }
+
+ /* UC6 Minimum Cost with maximum Ratings on Weekend days */
+ @Test
+ public void givenDateWeekend_shouldReturn_CheapestHotelNameBrideWood() throws Exception {
+     String hotelName = hotelReservationService.findCheapestCostWithMaxRatings("2020-09-12", "2020-09-13");
+     Assertions.assertEquals("BridgeWood", hotelName);
+ }
+
+ /* UC6 Minimum Cost with maximum Ratings on weekday adn weekend day*/
+ @Test
+ public void givenDateWeekDayWeekend_shouldReturn_CheapestHotelNameGivesBridgeWood() throws Exception {
+     String hotelName = hotelReservationService.findCheapestCostWithMaxRatings("2020-09-11", "2020-09-12");
+     Assertions.assertEquals("BridgeWood", hotelName);
+ }
+
+
+ /* UC7 Cost with maximum Ratings weekday*/
+ @Test
+ public void givenDate_WeekDayshouldReturn_CheapestHotelNameRidgeWood() throws Exception {
+     String hotelName = hotelReservationService.calculateCheapestHotelAndRateByRating("2020-09-14", "2020-09-16");
+     Assertions.assertEquals("RidgeWood", hotelName);
+ }
+
+ /* UC7 Cost with maximum Ratings weekend*/
+ @Test
+ public void givenDateWeekend_shouldReturn_CheapestHotelNameRidgeeWood() throws Exception {
+     String hotelName = hotelReservationService.calculateCheapestHotelAndRateByRating("2020-09-12", "2020-09-13");
+     Assertions.assertEquals("RidgeWood", hotelName);
+ }
+
+ /* UC7 Cost with maximum Ratings weekday weekend*/
+ @Test
+ public void givenDateWeekDayWeekend_shouldReturn_CheapestHotelNameGivenBridgeWood() throws Exception {
+     String hotelName = hotelReservationService.calculateCheapestHotelAndRateByRating("2020-09-11", "2020-09-12");
+     Assertions.assertEquals("RidgeWood", hotelName);
+ }
 }
