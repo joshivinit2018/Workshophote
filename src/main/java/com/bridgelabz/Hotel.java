@@ -1,27 +1,38 @@
 package com.bridgelabz;
 public class Hotel {
     private String name;
-    private int rate;
+    private int weekdayrate;
+    private int weekendrate;
 
-    //Parameterized Constructor
-    public Hotel(String name, int rate) {
-        this.setName(name);
+    public String toString(){
+        return "Hotel [name=" + name + ", weekdayrate=" + weekdayrate +", weekendrate=" + weekendrate + "]";
     }
 
-    //  Getter And Setter Methods
-    public int getRate() {
-        return rate;
-    }
-
-    public void setRate(int rate){
-        this.rate = rate;
-    }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name){
+    // Getter And Setter Methods
+    public void setName(String name) {
         this.name = name;
+    }
+
+    public int getWeekdayrate() {
+        return weekdayrate;
+    }
+
+    public void setWeekdayrate(int weekdayrate) {
+        this.weekdayrate = weekdayrate;
+    }
+
+   public void setWeekendrate(int weekendrate) {
+       this.weekendrate = weekendrate;
+   }
+   public Hotel(String name, int weekdayrate, int weekendrate){
+        super();
+        this.name = name;
+        this.weekdayrate = weekdayrate;
+        this.weekendrate = weekendrate;
     }
 }
