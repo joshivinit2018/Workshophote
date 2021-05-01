@@ -1,38 +1,42 @@
 package com.bridgelabz;
 public class Hotel {
-    private String name;
-    private int weekdayrate;
-    private int weekendrate;
+    private String hotelName;
+    private int hotelRating;
+    private int regularRate;
+    private int weekendRate;
 
-    public String toString(){
-        return "Hotel [name=" + name + ", weekdayrate=" + weekdayrate +", weekendrate=" + weekendrate + "]";
+    // Parameterized Constructor
+    public Hotel(String hotelName, int hotelRating, int regularRate, int weekendRate) {
+        this.hotelName = hotelName;
+        this.hotelRating = hotelRating;
+        this.regularRate = regularRate;
+        this.weekendRate = weekendRate;
     }
-
-
-    public String getName() {
-        return name;
-    }
-
     // Getter And Setter Methods
-    public void setName(String name) {
-        this.name = name;
+    public String getHotelName() {
+        return hotelName;
+    }
+    public void setHotelName(String hotelName) {
+        this.hotelName = hotelName;
+    }
+    public int getRegularRate() {
+        return regularRate;
+    }
+    public void setRegularRate(int regularRate) {
+        this.regularRate = regularRate;
+    }
+    public int getWeekendRate() {
+        return weekendRate;
+    }
+    public void setWeekendRate(int weekendRate) {
+        this.weekendRate = weekendRate;
     }
 
-    public int getWeekdayrate() {
-        return weekdayrate;
+    public int getHotelRating() {
+        return hotelRating;
     }
 
-    public void setWeekdayrate(int weekdayrate) {
-        this.weekdayrate = weekdayrate;
-    }
-
-   public void setWeekendrate(int weekendrate) {
-       this.weekendrate = weekendrate;
-   }
-   public Hotel(String name, int weekdayrate, int weekendrate){
-        super();
-        this.name = name;
-        this.weekdayrate = weekdayrate;
-        this.weekendrate = weekendrate;
+    public void setHotelRating(int hotelRating) {
+        this.hotelRating = hotelRating;
     }
 }
